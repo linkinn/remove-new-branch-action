@@ -39,7 +39,7 @@ export async function execute({
   }
 
   core.debug(`Branch ${branchName} not is validate`)
-  toolKit.rest.git.deleteRef({
+  await toolKit.rest.git.deleteRef({
     ...repo,
     ref
   })
