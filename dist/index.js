@@ -123,7 +123,7 @@ function execute({ allowedBranchList }) {
             .filter(prefix => branchName.startsWith(prefix));
         core.debug(`Branch list filter: ${JSON.stringify(branchValidate)}`);
         core.debug(`Quantity branch list: ${branchValidate.length}`);
-        if (branchValidate.length > 0 && branchValidate[0] !== '') {
+        if (branchValidate.length) {
             core.debug(`Branch ${branchName} is validate`);
             return;
         }
