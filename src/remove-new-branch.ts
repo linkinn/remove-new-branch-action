@@ -12,5 +12,12 @@ export async function execute(): Promise<void> {
   getOctokit(githubToken())
   const {ref} = context
 
-  core.debug(ref)
+  if (!ref.startsWith('refs/heads')) {
+    core.debug(`Branch ${ref} e um tag`)
+    return
+  }
+
+  const branchName = ref.split('refs/heads')
+
+  core.debug(`Branch name: ${branchName}`)
 }
