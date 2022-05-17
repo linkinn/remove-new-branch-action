@@ -46,6 +46,7 @@ function run() {
         try {
             core.debug(`stating`);
             const allowedBranchList = core.getInput('allowed_branch_list');
+            core.debug(`[ALLOWED_BRANCH_LIST]: ${allowedBranchList}`);
             (0, remove_new_branch_1.execute)({ allowedBranchList });
         }
         catch (error) {
