@@ -1,6 +1,7 @@
 name: 'build-test'
-on: # rebuild any PRs and main branch changes
-  workflow_dispatch:
+
+on:
+  create
 
 jobs:
   test: # make sure the action works on a clean machine without building
@@ -10,5 +11,3 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        # with:
-        #   allowed_branch_list: ${{ secrets.ALLOWED_BRANCH_LIST }}
