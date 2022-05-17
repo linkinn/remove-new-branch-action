@@ -47,7 +47,7 @@ export async function execute({
 
   const slackToken = process.env.SLACK_TOKEN
   const payload = core.getInput('payload')
-  const channelID = core.getInput('channelID')
+  const channelID = core.getInput('channel_id')
   if (slackToken) {
     slack({
       payload,

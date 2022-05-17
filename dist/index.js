@@ -140,7 +140,7 @@ function execute({ allowedBranchList }) {
         yield toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, repo), { ref: `heads/${branchName}` }));
         const slackToken = process.env.SLACK_TOKEN;
         const payload = core.getInput('payload');
-        const channelID = core.getInput('channelID');
+        const channelID = core.getInput('channel_id');
         if (slackToken) {
             (0, slack_send_1.slack)({
                 payload,
