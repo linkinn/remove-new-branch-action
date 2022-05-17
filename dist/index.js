@@ -116,12 +116,16 @@ function execute({ allowedBranchList }) {
             return;
         }
         const branchName = ref.split('refs/heads/')[1];
-        const branchValidate = allowedBranchList.split(',').filter(prefix => branchName.startsWith(prefix));
-        if (branchValidate.length) {
-            core.debug(`Branch ${branchName} e valida`);
+        const branchValidate = allowedBranchList
+            .split(',')
+            .filter(prefix => branchName.startsWith(prefix));
+        core.debug(`Branch list filter: ${branchValidate}`);
+        core.debug(`Quantity branch list: ${branchValidate.length}`);
+        if (branchValidate.length > 0) {
+            core.debug(`Branch ${branchName} is validate`);
             return;
         }
-        core.debug(`Branch ${branchName} nao e valida`);
+        core.debug(`Branch ${branchName} not is validate`);
         toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/heads/${branchName}` }));
         core.debug(`Branch name: ${branchName}`);
     });

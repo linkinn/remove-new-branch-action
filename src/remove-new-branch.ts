@@ -30,12 +30,14 @@ export async function execute({
     .split(',')
     .filter(prefix => branchName.startsWith(prefix))
 
-  if (branchValidate.length) {
-    core.debug(`Branch ${branchName} e valida`)
+  core.debug(`Branch list filter: ${branchValidate}`)
+  core.debug(`Quantity branch list: ${branchValidate.length}`)
+  if (branchValidate.length > 0) {
+    core.debug(`Branch ${branchName} is validate`)
     return
   }
 
-  core.debug(`Branch ${branchName} nao e valida`)
+  core.debug(`Branch ${branchName} not is validate`)
   toolKit.rest.git.deleteRef({
     ...context.repo,
     ref: `refs/heads/${branchName}`
