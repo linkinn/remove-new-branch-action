@@ -16,8 +16,9 @@ export async function execute({
   allowedBranchList
 }: IRemoveBranchList): Promise<void> {
   const toolKit = getOctokit(githubToken())
-  const {ref, eventName} = context
+  const {ref, eventName, repo} = context
   core.debug(`Event name: ${eventName}`)
+  core.debug(`Branch ref: ${ref}`)
 
   if (!ref.startsWith('refs/heads')) {
     core.debug(`Branch ${ref} e um tag`)
@@ -39,7 +40,7 @@ export async function execute({
 
   core.debug(`Branch ${branchName} not is validate`)
   toolKit.rest.git.deleteRef({
-    ...context.repo,
+    ...repo,
     ref: `refs/heads/${branchName}`
   })
 

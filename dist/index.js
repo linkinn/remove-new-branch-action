@@ -109,8 +109,9 @@ function githubToken() {
 function execute({ allowedBranchList }) {
     return __awaiter(this, void 0, void 0, function* () {
         const toolKit = (0, github_1.getOctokit)(githubToken());
-        const { ref, eventName } = github_1.context;
+        const { ref, eventName, repo } = github_1.context;
         core.debug(`Event name: ${eventName}`);
+        core.debug(`Branch ref: ${ref}`);
         if (!ref.startsWith('refs/heads')) {
             core.debug(`Branch ${ref} e um tag`);
             return;
@@ -126,7 +127,7 @@ function execute({ allowedBranchList }) {
             return;
         }
         core.debug(`Branch ${branchName} not is validate`);
-        toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/heads/${branchName}` }));
+        toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, repo), { ref: `refs/heads/${branchName}` }));
         core.debug(`Branch name: ${branchName}`);
     });
 }
