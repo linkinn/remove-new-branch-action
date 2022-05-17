@@ -6,6 +6,12 @@ inputs:
     required: false
     description: 'Add list branch validate, separeted with ,'
     default: 'main,release,feature,devops,hotfix,fix,dependabot'
+  payload:
+    required: false
+    description: 'Add list branch validate, separeted with ,'
+  channel_id:
+    required: false
+    description: 'Add list branch validate, separeted with ,'
 runs:
   using: 'node16'
   main: 'dist/index.js'

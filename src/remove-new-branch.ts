@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import {getOctokit, context} from '@actions/github'
+import {slack} from './slack-send'
 
 interface IRemoveBranchList {
   allowedBranchList: string
@@ -43,6 +44,19 @@ export async function execute({
     ...repo,
     ref: `heads/${branchName}`
   })
+
+  const slackToken = process.env.SLACK_TOKEN
+  const payload = core.getInput('payload')
+  const channelID = core.getInput('channelID')
+  if (slackToken) {
+    slack({
+      payload,
+      channelID,
+      branchName,
+      repoName: repo.repo,
+      slackToken
+    })
+  }
 
   core.debug(`Branch name: ${branchName}`)
 }

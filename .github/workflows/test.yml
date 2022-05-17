@@ -11,5 +11,7 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         with:
           allowed_branch_list: ${{ secrets.ALLOWED_BRANCH_LIST }}
+          channel_id: ${{ secrets.CHANNEL_ID }}
