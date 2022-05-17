@@ -109,7 +109,12 @@ function execute() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, github_1.getOctokit)(githubToken());
         const { ref } = github_1.context;
-        core.debug(ref);
+        if (!ref.startsWith('refs/heads')) {
+            core.debug(`Branch ${ref} e um tag`);
+            return;
+        }
+        const branchName = ref.split('refs/heads');
+        core.debug(`Branch name: ${branchName}`);
     });
 }
 exports.execute = execute;
