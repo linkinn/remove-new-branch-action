@@ -45,7 +45,8 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             core.debug(`stating`);
-            (0, remove_new_branch_1.execute)();
+            const allowedBranchList = core.getInput('allowed_branch_list');
+            (0, remove_new_branch_1.execute)({ allowedBranchList });
         }
         catch (error) {
             if (error instanceof Error)
@@ -105,15 +106,27 @@ function githubToken() {
         throw ReferenceError('No token defined in the environment variables');
     return token;
 }
-function execute() {
+function execute({ allowedBranchList }) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, github_1.getOctokit)(githubToken());
-        const { ref } = github_1.context;
+        const { ref, eventName } = github_1.context;
+        core.debug(`Event name: ${eventName}`);
         if (!ref.startsWith('refs/heads')) {
             core.debug(`Branch ${ref} e um tag`);
             return;
         }
-        const branchName = ref.split('refs/heads');
+        const branchName = ref.split('refs/heads/')[1];
+        const branchValidate = allowedBranchList.split(',').filter(prefix => {
+            if (branchName.startsWith(prefix)) {
+                return true;
+            }
+            return false;
+        });
+        if (branchValidate.length) {
+            core.debug(`Branch ${branchName} e valida`);
+            return;
+        }
+        core.debug(`Branch ${branchName} nao e valida`);
         core.debug(`Branch name: ${branchName}`);
     });
 }

@@ -10,3 +10,5 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          allowed_branch_list: ${{ secrets.ALLOWED_BRANCH_LIST }}

@@ -1,6 +1,10 @@
 import * as core from '@actions/core'
 import {getOctokit, context} from '@actions/github'
 
+interface IRemoveBranchList {
+  allowedBranchList: string
+}
+
 function githubToken(): string {
   const token = process.env.GITHUB_TOKEN
   if (!token)
@@ -8,16 +12,33 @@ function githubToken(): string {
   return token
 }
 
-export async function execute(): Promise<void> {
+export async function execute({
+  allowedBranchList
+}: IRemoveBranchList): Promise<void> {
   getOctokit(githubToken())
-  const {ref} = context
+  const {ref, eventName} = context
+  core.debug(`Event name: ${eventName}`)
 
   if (!ref.startsWith('refs/heads')) {
     core.debug(`Branch ${ref} e um tag`)
     return
   }
 
-  const branchName = ref.split('refs/heads')
+  const branchName = ref.split('refs/heads/')[1]
+
+  const branchValidate = allowedBranchList.split(',').filter(prefix => {
+    if (branchName.startsWith(prefix)) {
+      return true
+    }
+    return false
+  })
+
+  if (branchValidate.length) {
+    core.debug(`Branch ${branchName} e valida`)
+    return
+  }
+
+  core.debug(`Branch ${branchName} nao e valida`)
 
   core.debug(`Branch name: ${branchName}`)
 }
