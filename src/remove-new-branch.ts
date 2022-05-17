@@ -26,7 +26,9 @@ export async function execute({
 
   const branchName = ref.split('refs/heads/')[1]
 
-  const branchValidate = allowedBranchList.split(',').filter(prefix => branchName.startsWith(prefix))
+  const branchValidate = allowedBranchList
+    .split(',')
+    .filter(prefix => branchName.startsWith(prefix))
 
   if (branchValidate.length) {
     core.debug(`Branch ${branchName} e valida`)

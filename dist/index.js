@@ -116,12 +116,7 @@ function execute({ allowedBranchList }) {
             return;
         }
         const branchName = ref.split('refs/heads/')[1];
-        const branchValidate = allowedBranchList.split(',').filter(prefix => {
-            if (branchName.startsWith(prefix)) {
-                return true;
-            }
-            return false;
-        });
+        const branchValidate = allowedBranchList.split(',').filter(prefix => branchName.startsWith(prefix));
         if (branchValidate.length) {
             core.debug(`Branch ${branchName} e valida`);
             return;
