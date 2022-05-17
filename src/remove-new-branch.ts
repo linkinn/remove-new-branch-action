@@ -41,7 +41,7 @@ export async function execute({
   core.debug(`Branch ${branchName} not is validate`)
   toolKit.rest.git.deleteRef({
     ...repo,
-    ref: `refs/heads/${branchName}`
+    ref
   })
 
   core.debug(`Branch name: ${branchName}`)
