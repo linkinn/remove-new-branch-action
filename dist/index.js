@@ -127,7 +127,7 @@ function execute({ allowedBranchList }) {
             return;
         }
         core.debug(`Branch ${branchName} not is validate`);
-        toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, repo), { ref: `refs/heads/${branchName}` }));
+        toolKit.rest.git.deleteRef(Object.assign(Object.assign({}, repo), { ref }));
         core.debug(`Branch name: ${branchName}`);
     });
 }
