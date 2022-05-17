@@ -5,7 +5,7 @@ input:
   allowed_branch_list:
     required: false
     description: 'Add list branch validate, separeted with ,'
-    default: 'main,release,feature,devops,hotfix,fix'
+    default: 'main,release,feature,devops,hotfix,fix,dependabot'
 runs:
   using: 'node16'
   main: 'dist/index.js'
